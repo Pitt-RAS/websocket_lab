@@ -1,32 +1,43 @@
-var point_queue = [];
-var q_size = 0;
+// File: socket.js
+// Author: Charles Kiorpes
+// Date: September 28th, 2014
+//
+// Opens a websocket connection to the ws_server.py server
+// on localhost:8765 and graphs the data it receives 
 
+
+var point_queue = [];   // this is a list of data points, treated as a queue
+var q_size = 0;         // keep track of the size, to reduce calculations needed
+
+// set up the WebSocket
 var connection = new WebSocket("ws://localhost:8765");
+
+// the behavior when the socket is opened
 connection.onopen = function() {
-  // modify some HTML element
-  // to indicate that the socket is open
   alert("socket opened");
 }
 
+// the behavior when the socket is closed
 connection.onclose = function() {
   // modify another HTML DOM element
   alert("socket closed");
 }
 
+// the behavior if there is an error
 connection.onerror = function(error) {
   console.log("ERROR HAPPENED!");
 }
 
+// the behavior if a message is received
 connection.onmessage = function(e) {
   var server_message = e.data;
   // put the data in a DOM element to see
   document.getElementById("frank").innerHTML = server_message;
-  var value = parseFloat(server_message);
-  update_graph(value);
+  var value = parseFloat(server_message); // save the value
+  update_graph(value); // use the value to update the graph canvas
 }
 
-//connection.send("I have connected!");
-
+// update the graph canvas and redraw the graph
 function update_graph(value) {
 
   var graph = document.getElementById("graph");  // get the graph from the DOM
