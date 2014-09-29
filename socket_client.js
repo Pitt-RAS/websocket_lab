@@ -1,4 +1,4 @@
-// File: socket.js
+// File: socket_client.js
 // Author: Charles Kiorpes
 // Date: September 28th, 2014
 //
